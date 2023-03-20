@@ -1,14 +1,17 @@
 extends CharacterBody2D
 
-var m_gravity = 300.0
-var m_velocity = Vector2.ZERO
-var m_max_horizontal_speed = 100
-var m_jump_speed = 200.0
+var m_gravity: float
+var m_velocity: Vector2
+var m_max_horizontal_speed: float
+var m_jump_speed: float
 
 func _ready():
-	pass
+	m_gravity = 300.0
+	m_velocity = Vector2.ZERO
+	m_max_horizontal_speed = 100.0
+	m_jump_speed = 200.0
 
-func _process(delta):
+func _process(delta: float):
 	var move_vec = Vector2.ZERO
 	move_vec.x = Input.get_action_strength("move_right") \
 		- Input.get_action_strength("move_left")

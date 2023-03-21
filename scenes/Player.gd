@@ -2,9 +2,10 @@ extends CharacterBody2D
 
 var m_gravity: float = 1_000
 var m_velocity: Vector2 = Vector2.ZERO
-var m_max_horizontal_speed: float = 125
+var m_max_horizontal_speed: float = 140
 var m_jump_speed: float = 360
 var m_horizontal_acceleration: float = 2_000
+var m_jump_termination_multiplier: float = 4
 
 func _ready():
 	pass
@@ -21,7 +22,10 @@ func _process(delta: float):
 
 	if (move_vec.y < 0 and is_on_floor()):
 		m_velocity.y = move_vec.y * m_jump_speed
-	
-	m_velocity.y += m_gravity * delta
+		
+	if (m_velocity.y < 0 and not Input.is_action_pressed("jump")):
+		m_velocity.y += m_gravity * m_jump_termination_multiplier * delta
+	else:
+		m_velocity.y += m_gravity * delta
 	velocity = m_velocity
 	move_and_slide()
